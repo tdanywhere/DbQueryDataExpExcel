@@ -1,0 +1,25 @@
+# Chose configuration. 
+login: VSTAAUOD
+sql_head: 3
+sql_task: 4
+
+# Confirgurations.
+db_login:
+  VSTAAUOD:
+    user: CAT_DBA
+    password: *****
+    dsn: AIXAUOP.Hoyer.local:1521/vstaauod
+  VSTAAUOR:
+    user: CAT_DBA
+    password: *****
+    dsn: AIXAUOP.Hoyer.local:1521/vstaauor
+  VSTADEVL:
+    user: vdm_deter
+    password: *****
+    dsn: AIXVISTAD.hoyer.local:1521/vstadevl
+
+sql_query:
+  1: SELECT ih.* FROM common.com_installations_history ih where rownum <= 150 order by id desc
+  2: select 1, page.PAGE_ID, page.PAGE_NAME, page.PAGE_MODE, 1, 'Repaint' from apex_application_pages  page where page.application_id = 100
+  3: select rph.id, rph.PAGE_ID, rph.PAGE_NAME, rph.PAGE_MODE, rph.STATUS, rph.PRIORITY, rph.START_DATE, rph.FINISH_DATE from rpt_page_headers_vw rph
+  4: select rpt.id, rpt.page_id, rpt.status, rpt.priority, rpt.start_date, rpt.finish_date, rpt.description, rpt.cluster_name, rpt.developer, rpt.tester from rpt_page_tasks_vw rpt
