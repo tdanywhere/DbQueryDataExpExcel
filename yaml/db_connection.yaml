@@ -1,21 +1,25 @@
 # Chose configuration. 
-login: VSTAAUOD
+login: XEPDB1
 sql_head: 3
 sql_task: 4
 
 # Confirgurations.
 db_login:
+  XEPDB1:
+    user: SANDBOX
+    password: sandbox
+    dsn: localhost:1521/xepdb1
   VSTAAUOD:
     user: CAT_DBA
-    password: *****
+    password: cgyA_2003
     dsn: AIXAUOP.Hoyer.local:1521/vstaauod
   VSTAAUOR:
     user: CAT_DBA
-    password: *****
+    password: cgyA_2003
     dsn: AIXAUOP.Hoyer.local:1521/vstaauor
   VSTADEVL:
     user: vdm_deter
-    password: *****
+    password: VDM_td$789
     dsn: AIXVISTAD.hoyer.local:1521/vstadevl
 
 sql_query:

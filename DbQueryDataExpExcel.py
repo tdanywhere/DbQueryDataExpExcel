@@ -3,6 +3,8 @@
 # This script queries the sandbox table in the Oracle database, displays the result in a table and
 # adds the fetched data to an Excel file.
 #
+# Use >pyinstaller DbQueryDataExpExcel.py to create an executable (e.g. for use with Jenkins).
+from datetime import date
 import pandas as pd
 import yaml
 import openpyxl
@@ -38,6 +40,7 @@ excel_out_path_file = './output/out_DbQuery.xlsx'
 excel_in_path_file = './input/DbQuery_template.xlsx'
 sheet_page_raw = 'Page raw'
 sheet_task_raw = 'Task raw'
+sheet_cockpit = 'Cockpit'
 
 print("Add data to new Sheet. Using OpenPyXl")
 wb = openpyxl.load_workbook(excel_in_path_file)
@@ -49,7 +52,7 @@ wb.create_sheet(index=2, title=sheet_page_raw)
 wb.create_sheet(index=3, title=sheet_task_raw)
 
 ########################
-# HEADER
+# Page HEADER
 ########################
 
 # Query the table
@@ -84,7 +87,7 @@ for row in ws["A1:F1"]:
 wb.save(excel_out_path_file)
 
 ########################
-# Task
+# Page Task
 ########################
 
 # Query the table
@@ -116,6 +119,15 @@ for row in ws["A1:J1"]:
     for cell in row:
         cell.font = ft
 
+wb.save(excel_out_path_file)
+
+########################
+# Cockpit
+########################
+wb.active = wb[sheet_cockpit]
+ws = wb.active
+
+ws['F1'] = date.today().strftime("%d.%m.%Y")
 wb.save(excel_out_path_file)
 
 #################################################
