@@ -41,6 +41,7 @@ excel_in_path_file = './input/DbQuery_template.xlsx'
 sheet_page_raw = 'Page raw'
 sheet_task_raw = 'Task raw'
 sheet_cockpit = 'Cockpit'
+sheet_pivots = 'Pivots'
 
 print("Add data to new Sheet. Using OpenPyXl")
 wb = openpyxl.load_workbook(excel_in_path_file)
@@ -122,6 +123,15 @@ for row in ws["A1:J1"]:
 wb.save(excel_out_path_file)
 
 ########################
+# Pivots
+########################
+wb.active = wb[sheet_pivots]
+ws = wb.active
+
+pivot = ws._pivots[0] # any will do as they share the same cache
+pivot.cache.refreshOnLoad = True
+
+########################
 # Cockpit
 ########################
 wb.active = wb[sheet_cockpit]
@@ -133,9 +143,16 @@ wb.save(excel_out_path_file)
 #################################################
 # Finish process and clean up.
 #################################################
+wb.active = wb[sheet_page_raw]
+ws = wb.active
+ws.sheet_state = 'hidden'
+
+wb.active = wb[sheet_task_raw]
+ws = wb.active
+ws.sheet_state = 'hidden'
 
 # Set active Sheet to Cockpit.
-wb.active = wb['Cockpit']
+wb.active = wb[sheet_cockpit]
 wb.save(excel_out_path_file)
 
 # Close the connection
